@@ -4,9 +4,6 @@ from dotenv import load_dotenv
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
 
-
-
-
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'this_is_the_key'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
@@ -17,7 +14,7 @@ class Config:
     MAX_CONTENT_LENGTH = 4 * 1024 * 1024
     POSTS_PER_PAGE=3
     COMMENTS_PER_PAGE=3
-    ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL') or  "http://localhost:9200"
+    ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL', 'http://elasticsearch:9200')
    
     TAG_CHOICES = [ # Tag choices to be added in a post - default is uncategorized (if not chosen)
     ('', 'Uncategorized'),

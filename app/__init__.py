@@ -9,7 +9,7 @@ from flask_moment import Moment
 from elasticsearch import Elasticsearch
 from config import Config
 from flask_mail import Mail
-
+from .cli import register_cli
 
 
 db = SQLAlchemy()
@@ -30,7 +30,7 @@ def create_app(config_class=Config):
     login.init_app(app)
     moment.init_app(app)
     mail.init_app(app)
-
+    register_cli(app)
     es_url = app.config.get('ELASTICSEARCH_URL')
     if es_url:
         app.elasticsearch = Elasticsearch([es_url])
