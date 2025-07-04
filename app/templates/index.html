@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="fw-medium text-center mb-4" style="color: #5a9289; opacity: 0.9;">
+  {{ greeting }}
+</h2>
+
+
+{% if form %}
+<div class="post-form bg-white p-4 shadow-sm mx-auto"
+     style="max-width: 600px; border-radius: 2rem; overflow: hidden; box-shadow: 0 4px 12px rgba(125, 179, 168, 0.15);">
+  <form action="" method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}  <!--Renders hidden CSRF token for security, required for form validation. -->
+
+   
+    <div class="mb-3">
+      {{ form.body(class="form-control rounded-pill px-4 py-3", placeholder="What's on your mind?") }}
+      {% for error in form.body.errors %}
+        <div class="text-danger small mt-1">{{ error }}</div>
+      {% endfor %}
+    </div>
+
+
+        <div class="d-flex align-items-center gap-2 mb-3">
+        {{ form.tag(class="form-control rounded-pill px-3", style="flex: 1;") }}
+
+   
+        <label for="attach-image" class="attach-icon" title="Attach image">
+            <i class="bi bi-image" style="font-size: 1.2rem;"></i>
+        </label>
+        
+        {{ form.pic(class="d-none", id="attach-image", accept="image/*") }}
+        </div>
+
+
+  
+   <div id="file-preview" class="rounded-4 shadow-sm mb-3 position-relative bg-light-subtle" 
+     style="display: none; max-height: 240px; overflow: hidden; padding: 0.5rem;">
+  
+  <button type="button" id="remove-preview" 
+          class="btn btn-sm btn-outline-danger rounded-circle position-absolute top-0 end-0 m-2" 
+          title="Remove"
+          style="background-color: rgba(255, 255, 255, 0.8); border: none;">
+    <i class="bi bi-x-lg" style="font-size: 1rem;"></i>
+  </button>
+  
+  <img id="preview-img" src="#" alt="Preview" 
+       class="w-100 rounded-3"
+       style="max-height: 220px; object-fit: contain; display: block; margin: auto; image-rendering: auto;" />
+</div>
+
+  
+    <div class="d-grid">
+      {{ form.submit(class="btn rounded-pill py-2 px-4", style="background-color: #2d8a6b; color: white;") }}
+    </div>
+  </form>
+</div>
+{% endif %}
+
+
+<div id="post-list">
+  {% include 'partials/_post_list.html' %}
+</div>
+
+      {% if not posts %} <!-- If no posts are available-->
+      <div class="empty-state text-center">
+        <h3 class="empty-title">No posts found</h3>
+        <p class="empty-description">There are no posts to show. Keep posting!.</p>
+      </div>
+      {% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,150 @@
+2025-06-22 13:02:57,962 ERROR: Exception on /auth/reset_password_request [POST] [in D:\Feelog\venv\Lib\site-packages\flask\app.py:875]
+Traceback (most recent call last):
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Feelog\app\auth\routes.py", line 69, in reset_password_request
+    send_password_reset_email(user)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "D:\Feelog\app\auth\email.py", line 13, in send_password_reset_email
+    html_body=render_template('email/reset_password.html',
+              ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                              user=user, token=token))
+                              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Feelog\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "D:\Feelog\venv\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+  File "D:\Feelog\venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Feelog\venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "D:\Feelog\app\templates\email\reset_password.html", line 12, in top-level template code
+    <p>{{ url_for('reset_password', token=token, _external=True) }}</p>
+    ^^^^^^^^^^^^^^^^^
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+        endpoint,
+    ...<3 lines>...
+        force_external=_external,
+    )
+  File "D:\Feelog\venv\Lib\site-packages\werkzeug\routing\map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'reset_password' with values ['token']. Did you mean 'auth.reset_password' instead?
+2025-06-22 13:03:42,350 INFO: Feelog startup [in D:\Feelog\app\__init__.py:75]
+2025-06-22 13:40:29,280 INFO: Feelog startup [in D:\Feelog\app\__init__.py:75]
+2025-06-22 13:40:37,570 INFO: Feelog startup [in D:\Feelog\app\__init__.py:75]
+2025-06-22 14:00:50,980 INFO: Feelog startup [in D:\Feelog\app\__init__.py:75]
+2025-06-22 14:01:36,464 INFO: Feelog startup [in D:\Feelog\app\__init__.py:75]
+2025-06-22 14:01:38,488 ERROR: Exception on / [GET] [in D:\Feelog\venv\Lib\site-packages\flask\app.py:875]
+Traceback (most recent call last):
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Feelog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "D:\Feelog\app\main\routes.py", line 42, in index
+    return render_template('index.html', title=('Home'), form=form,
+                           posts=posts.items, next_url=next_url,
+                           prev_url=prev_url)
+  File "D:\Feelog\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "D:\Feelog\venv\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+  File "D:\Feelog\venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Feelog\venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "D:\Feelog\app\templates\index.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "D:\Feelog\app\templates\base.html", line 35, in top-level template code
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Feelog\app\templates\index.html", line 31, in block 'content'
+    <p>{% include '_post.html' %}</p>
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Feelog\app\templates\_post.html", line 21, in top-level template code
+    <a href="{{ url_for('main.posts_by_tag', tag=post.tag) }}">
+    ^^^^^
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+        endpoint,
+    ...<3 lines>...
+        force_external=_external,
+    )
+  File "D:\Feelog\venv\Lib\site-packages\werkzeug\routing\map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'main.posts_by_tag'. Did you mean 'main.search' instead?
+2025-06-22 14:02:07,496 INFO: Feelog startup [in D:\Feelog\app\__init__.py:75]
+2025-06-22 14:02:26,988 ERROR: Exception on /index [GET] [in D:\Feelog\venv\Lib\site-packages\flask\app.py:875]
+Traceback (most recent call last):
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Feelog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "D:\Feelog\app\main\routes.py", line 42, in index
+    return render_template('index.html', title=('Home'), form=form,
+                           posts=posts.items, next_url=next_url,
+                           prev_url=prev_url)
+  File "D:\Feelog\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "D:\Feelog\venv\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+  File "D:\Feelog\venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Feelog\venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "D:\Feelog\app\templates\index.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "D:\Feelog\app\templates\base.html", line 35, in top-level template code
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Feelog\app\templates\index.html", line 31, in block 'content'
+    <p>{% include '_post.html' %}</p>
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Feelog\app\templates\_post.html", line 21, in top-level template code
+    <a href="{{ url_for('main.posts_by_tag', tag=post.tag) }}">
+    ^^^^^
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+        endpoint,
+    ...<3 lines>...
+        force_external=_external,
+    )
+  File "D:\Feelog\venv\Lib\site-packages\werkzeug\routing\map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'main.posts_by_tag' with values ['tag']. Did you mean 'main.search' instead?
+2025-06-22 14:24:58,719 INFO: Feelog startup [in D:\Feelog\app\__init__.py:75]

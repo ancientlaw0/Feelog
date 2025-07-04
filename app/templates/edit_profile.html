@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      
+      <h1 class="page-title text-center mb-4">Edit Profile</h1>
+
+      <div class="profile-card shadow-sm">
+        <form action="" method="post" enctype="multipart/form-data">
+          {{ form.hidden_tag() }}
+
+       
+          <div class="profile-image-section text-center mb-4">
+            <div class="profile-image-container">
+              {% if current_user.profile_image %}
+                <img src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}" 
+                     class="profile-image" alt="Profile Picture">
+              {% else %}
+                <img src="{{ url_for('static', filename='default.PNG') }}" 
+                     class="profile-image" alt="Default Profile Picture">
+              {% endif %}
+            </div>
+            <p class="profile-image-label">Current Profile Image</p>
+          </div>
+
+         
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-medium">{{ form.username.label.text }}</label>
+              {{ form.username(class="form-control rounded-pill", size=32) }}
+              {% for error in form.username.errors %}
+                <div class="error-message mt-1">{{ error }}</div>
+              {% endfor %}
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-medium">{{ form.profile_image.label.text }}</label>
+              {{ form.profile_image(class="form-control rounded-pill") }}
+              {% for error in form.profile_image.errors %}
+                <div class="error-message mt-1">{{ error }}</div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label fw-medium">{{ form.about_me.label.text }}</label>
+            {{ form.about_me(class="form-control rounded-textarea", cols=50, rows=4, placeholder="Tell us about yourself...") }}
+            {% for error in form.about_me.errors %}
+              <div class="error-message mt-1">{{ error }}</div>
+            {% endfor %}
+          </div>
+
+      
+          <div class="text-center">
+            {{ form.submit(class="btn btn-primary px-5 py-2 fw-medium") }}
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

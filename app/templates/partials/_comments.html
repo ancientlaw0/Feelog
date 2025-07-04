@@ -1,0 +1,20 @@
+<!-- Partial template for infinite scroll access  -->
+
+
+{% for comment in comments %}
+  {% if not comment.comment_author.is_banned %} <!-- Comments only show up if user is not banned-->
+    <div class="comment-card mb-4 p-4 rounded-4 shadow-sm bg-white bg-opacity-75 border border-1 border-teal-light">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="fw-semibold text-teal">{{ comment.comment_author.username }}</span>
+        <small class="text-muted">
+          <time class="timestamp" datetime="{{ comment.timestamp.isoformat() }}">
+            {{ moment(comment.timestamp).fromNow() }}
+          </time>
+        </small>
+      </div>
+      <p class="mb-0 text-dark" style="line-height: 1.6;">
+        {{ comment.comment_body }}
+      </p>
+    </div>
+  {% endif %}
+{% endfor %}

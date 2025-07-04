@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      
+      <div class="messages-header text-center mb-4">
+        <h1 class="page-title">Messages</h1>
+        <p class="page-subtitle">Stay connected with your community</p>
+      </div>
+
+      <div class="messages-container">
+        <div id="messages-list" class="messages-list">
+          {% include 'partials/_messages.html' with context %}
+        </div>
+
+        {% if next_url %}
+          <div id="load-more-trigger" 
+               class="load-more-section text-center mt-4" 
+               data-next-url="{{ next_url }}">
+            <div class="loading-spinner">
+              <div class="spinner"></div>
+              <p class="loading-text">Loading more messages...</p>
+            </div>
+          </div>
+        {% endif %}
+
+        {% if not messages %} <!-- If no messages to show-->
+          <div class="empty-state text-center">
+            <div class="empty-icon">💬</div>
+            <h3 class="empty-title">No messages yet</h3>
+            <p class="empty-description">Start being more active in the community!</p>
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

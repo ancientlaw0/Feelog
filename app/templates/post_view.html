@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  {% set post = post %}
+  {% include '_post.html' %}
+
+  <div class="container mt-5">
+    <div class="post-comment-divider"></div>
+
+    <h3 class="text-teal fw-bold mb-4">Comments</h3>
+
+    <form method="POST" action="" class="mb-5">
+      {{ form.hidden_tag() }}  <!--Renders hidden CSRF token for security, required for form validation. -->
+
+      <div class="mb-3">
+        {{ form.comment_body.label(class="form-label text-muted") }}
+        {{ form.comment_body(rows=3, class="form-control rounded-4 shadow-sm", placeholder="Write your thoughts...") }}
+      </div>
+
+      <div>
+        {{ form.submit(class="btn btn-primary rounded-pill px-4 py-2 fw-semibold") }}
+      </div>
+    </form>
+
+    <div id="comment-list" class="comment-list">
+      {% include 'partials/_comments.html' with context %}
+    </div>
+
+            {% if next_url %}
+          <div id="load-more-trigger" 
+               class="load-more-section text-center mt-4" 
+               data-next-url="{{ next_url }}">
+            <div class="loading-spinner">
+              <div class="spinner"></div>
+              <p class="loading-text">Loading more comments...</p>
+            </div>
+          </div>
+        {% endif %}
+    
+
+    {% if next_url %}
+      <div id="load-more-trigger" data-next-url="{{ next_url }}"></div>
+    {% endif %}
+  </div>
+
+{% endblock %}

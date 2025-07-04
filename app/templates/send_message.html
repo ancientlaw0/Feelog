@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="send-message-container">
+  <div class="container">
+    <h1>Send a message...</h1>
+    
+    <form class="send-message-form" action="" method="post">
+      {{ form.hidden_tag() }}  <!--Renders hidden CSRF token for security, required for form validation. -->
+      
+      <div class="form-field">
+        {{ form.message.label(class="form-label") }}
+        {{ form.message(class="form-control", rows=8, placeholder="Share your thoughts...") }}
+      </div>
+      
+      <div class="form-field">
+        {{ form.submit(class="submit-btn") }}
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+
+{%extends "base.html"%}
+{%block content%}
+
+<div class="edit-post-container">
+    <div class="edit-post-header">
+        <h1 class="edit-post-title">
+            <span class="title-icon">✏️</span>
+            Edit Your Post
+        </h1>
+        <div class="header-decoration"></div>
+    </div>
+
+    <div class="form-wrapper">
+        <form action="" method="post" enctype="multipart/form-data" class="edit-post-form">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                <div class="input-wrapper">
+                    {{ form.body.label(class="form-label") }}
+                    <div class="textarea-container">
+                        {{ form.body(rows=5, cols=25, class="form-control form-textarea") }}
+                        <div class="input-decoration"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-wrapper">
+                    {{ form.pic.label(class="form-label") }}
+                    <div class="file-upload-container">
+                        {{ form.pic(class="form-control file-input") }}
+                        <div class="file-upload-decoration">
+                            <span class="file-icon">📷</span>
+                            <span class="file-text">Choose image file</span>
+                        </div>
+                    </div>
+                    {% for error in form.pic.errors %}
+                        <div class="error-message">
+                            
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-wrapper">
+                    {{ form.tag.label(class="form-label") }}
+                    <div class="select-container">
+                        {{ form.tag(class="form-control form-select") }}
+                        <div class="select-decoration"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="submit-wrapper">
+                {{ form.submit(class="btn-submit") }}
+                <div class="submit-decoration"></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{%endblock%}

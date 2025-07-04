@@ -1,0 +1,146 @@
+2025-06-22 14:25:05,114 ERROR: Exception on /tag/Random [GET] [in D:\Feelog\venv\Lib\site-packages\flask\app.py:875]
+Traceback (most recent call last):
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Feelog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "D:\Feelog\app\main\routes.py", line 177, in posts_by_tag
+    return render_template('tag_posts.html', posts=posts.items, tag=tag,
+                           next_url=next_url, prev_url=prev_url)
+  File "D:\Feelog\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "D:\Feelog\venv\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+  File "D:\Feelog\venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Feelog\venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "D:\Feelog\app\templates\tag_posts.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "D:\Feelog\app\templates\base.html", line 35, in top-level template code
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Feelog\app\templates\tag_posts.html", line 4, in block 'content'
+    <h1>{{ post.tag }}</h1>
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Feelog\venv\Lib\site-packages\jinja2\environment.py", line 490, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'post' is undefined
+2025-06-22 14:26:04,776 INFO: Feelog startup [in D:\Feelog\app\__init__.py:75]
+2025-06-22 15:47:52,763 INFO: Feelog startup [in D:\Feelog\app\__init__.py:75]
+2025-06-22 15:47:57,876 ERROR: Exception on /tag/Random [GET] [in D:\Feelog\venv\Lib\site-packages\flask\app.py:875]
+Traceback (most recent call last):
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Feelog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "D:\Feelog\app\main\routes.py", line 176, in posts_by_tag
+    next_url = url_for('main.posts_by_tag', page=posts.next_num) \
+               ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Feelog\venv\Lib\site-packages\flask\helpers.py", line 232, in url_for
+    return current_app.url_for(
+           ~~~~~~~~~~~~~~~~~~~^
+        endpoint,
+        ^^^^^^^^^
+    ...<4 lines>...
+        **values,
+        ^^^^^^^^^
+    )
+    ^
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Feelog\venv\Lib\site-packages\flask\app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+        endpoint,
+    ...<3 lines>...
+        force_external=_external,
+    )
+  File "D:\Feelog\venv\Lib\site-packages\werkzeug\routing\map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'main.posts_by_tag' with values ['page']. Did you forget to specify values ['tag']?
+2025-06-22 15:48:35,098 INFO: Feelog startup [in D:\Feelog\app\__init__.py:75]
+2025-07-04 13:16:28,230 INFO: Feelog startup [in D:\Feelog\app\__init__.py:63]
+2025-07-04 13:36:01,934 INFO: Feelog startup [in D:\Feelog\app\__init__.py:63]
+2025-07-04 13:36:08,010 INFO: Feelog startup [in D:\Feelog\app\__init__.py:63]
+2025-07-04 13:36:12,117 INFO: Feelog startup [in D:\Feelog\app\__init__.py:63]
+2025-07-04 13:40:08,463 INFO: Feelog startup [in D:\Feelog\app\__init__.py:63]
+2025-07-04 13:53:19,577 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 13:56:43,571 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 13:57:58,241 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 13:58:23,489 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 13:58:26,468 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 13:58:40,503 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 13:58:48,496 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 13:58:57,668 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:03:16,112 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:03:22,266 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:03:29,342 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:03:34,314 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:03:41,363 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:03:47,595 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:04:01,810 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:35:14,686 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:35:21,744 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:35:30,839 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:35:38,842 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:37:17,901 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:41:30,290 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:41:35,464 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:41:59,719 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:42:03,046 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:44:03,387 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:44:05,352 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:44:12,411 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:44:20,514 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:44:25,798 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:45:02,234 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:45:06,236 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:45:12,309 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:45:15,392 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:45:17,581 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:46:09,287 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:46:21,564 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:46:40,796 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:46:58,041 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:47:03,103 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:47:09,119 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:47:44,536 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:47:51,711 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:47:54,773 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:48:06,932 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:48:10,959 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:49:02,630 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:49:40,141 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:50:04,419 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:50:55,037 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:51:07,230 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:51:10,378 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:51:17,555 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:51:23,691 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:51:40,864 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:52:03,142 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:52:09,282 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:52:18,460 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:52:51,845 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:52:53,913 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:53:06,017 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:53:08,031 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]
+2025-07-04 14:53:12,142 INFO: Feelog startup [in D:\Feelog\app\__init__.py:64]

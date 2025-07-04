@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5 mb-4 text-center">
+  <h2 class="search-title">Search Results</h2>
+  <p class="search-subtitle">
+    Showing results for: <strong>{{ g.search_form.q.data }}</strong>
+  </p>
+</div>
+
+<div id="post-list" class="container">
+  {% include 'partials/_post_list.html' %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      
+      <div class="tag-header text-center mb-4">
+        <div class="tag-badge shadow-sm">
+          <span class="tag-icon">#</span>
+          <h1 class="tag-title">{{ tag }}</h1>
+        </div>
+        <p class="tag-subtitle">Explore posts tagged with <strong>{{ tag }}</strong></p>
+      </div>
+
+      <div class="posts-container">
+        <div id="post-list" class="posts-list">
+          {% include 'partials/_post_list.html' %}
+        </div>
+
+        {% if not posts %} <!-- If no posts are available for the tag-->
+          <div class="empty-state text-center">
+            <div class="empty-icon">🏷️</div>
+            <h3 class="empty-title">No posts found</h3>
+            <p class="empty-description">There are no posts with the tag <strong>{{ tag }}</strong> yet.</p>
+            <a href="{{ url_for('main.index') }}" class="btn btn-primary mt-3">
+              Browse All Posts
+            </a>
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

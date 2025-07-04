@@ -1,0 +1,23 @@
+<!-- Partial template for infinite scroll access  -->
+
+
+<div class="posts-grid">
+  {% for post in posts %}
+    {% include '_post.html' %}
+  {% endfor %}
+</div>
+
+<!--Load more trigger for AJAX -->
+{% if next_url %}
+  <div id="load-more-trigger"             
+       class="load-more-section text-center mt-4" 
+       data-next-url="{{ next_url }}">
+    <div class="loading-indicator">
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+      </div>
+      <p class="loading-text">Loading more posts...</p>
+    </div>
+  </div>
+{% endif %}
+

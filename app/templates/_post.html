@@ -1,0 +1,80 @@
+<div class="post" data-id="{{ post.id }}">
+    <div class="post-container">
+        
+        <div class="profile-section">
+            <div class="profile-box">
+                {% if post.author.profile_image %}
+                    <img src="{{ url_for('static', filename='profile_pics/' + post.author.profile_image) }}" class="profile-img">
+                {% else %}
+                <!--  Replacing profile with default PNG if no set  -->
+                    <img src="{{ url_for('static', filename='default.PNG') }}" class="profile-img"> 
+
+                {% endif %}
+            </div>
+            <div class="profile-info">
+                <a href="{{ url_for('main.user', username=post.author.username) }}" class="username">
+                    {{ post.author.username }}
+                </a>
+                <div class="timestamp">
+                    <time datetime="{{ post.timestamp.isoformat() }}">{{ moment(post.timestamp).fromNow() }}</time>
+                </div>
+            </div>
+        </div>
+
+       
+        <div class="post-content">
+            <div class="post-body">{{ post.body }}</div>
+            
+            {% if post.pic %}
+                <div class="post-image">
+                    <img src="{{ url_for('static', filename='post/' + post.pic) }}" class="content-img">
+                </div>
+            {% endif %}
+
+            {% if post.tag %}
+                <div class="post-tag">
+                    <a href="{{ url_for('main.posts_by_tag', tag=post.tag) }}" class="tag-link">
+                        #{{ post.tag if post.tag else 'Uncategorized' }}  <!-- Default tag is uncategorized-->
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+     
+        <div class="actions-section">
+            <div class="reaction-buttons">
+                <button class="reaction-btn like-btn" data-post-id="{{ post.id }}" data-action="cheer">
+                    <span class="btn-icon">👍</span>
+                    <span class="btn-text" id="cheers-{{ post.id }}">{{ post.cheer_count }}</span>
+                </button>
+                
+                <button class="reaction-btn dislike-btn" data-post-id="{{ post.id }}" data-action="boo">
+                    <span class="btn-icon">👎</span>
+                    <span class="btn-text" id="boos-{{ post.id }}">{{ post.boo_count }}</span>
+                </button>
+                
+                        <a href="{{ url_for('main.post_view', post_id=post.id) }}" style="text-decoration: none;" class="action-btn comment-btn">
+                            💬Comment
+                        </a>
+            </div>
+
+
+            <div class="post-actions">
+                {% if post.author.id == current_user.id %}
+                    <a href="{{ url_for('main.edit_post', id=post.id) }}" class="action-btn edit-btn text-decoration-none">
+                        <span class="btn-icon">✏️</span>
+                        <span class="btn-text">Edit</span>
+                    </a>
+                    
+                {% endif %}
+                
+                {% if post.author.id == current_user.id or current_user.role == 'admin' %}
+                    <button class="action-btn delete-btn" data-id="{{ post.id }}">
+                        <span class="btn-icon">🗑️</span>
+                        <span class="btn-text">Delete</span>
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

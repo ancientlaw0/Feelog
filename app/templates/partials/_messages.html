@@ -1,0 +1,38 @@
+<!-- Partial template for infinite scroll access  -->
+
+
+{% for message in messages %}
+{% if message.author.is_banned == False%}
+
+  <div class="message-card shadow-sm mb-3" data-message-id="{{ message.id }}">
+    <div class="message-header d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center">
+        <div class="user-avatar">
+          {% if message.author.profile_image %}
+            <img src="{{ url_for('static', filename='profile_pics/' + message.author.profile_image) }}" 
+                 alt="{{ message.author.username }}" class="avatar-img">
+          {% else %}
+            <img src="{{ url_for('static', filename='default.PNG') }}" 
+                 alt="{{ message.author.username }}" class="avatar-img">
+          {% endif %}
+        </div>
+        <div class="user-info">
+          <a href="{{ url_for('main.user', username=message.author.username) }}" 
+             class="username-link">
+            <h5 class="username mb-0">{{ message.author.username }}</h5>
+          </a>
+          <small class="message-timestamp">{{ moment(message.timestamp).fromNow() }}</small>
+        </div>
+      </div>
+      
+    </div>
+    
+    <div class="message-content">
+      <p class="message-text">{{ message.body }}</p>
+    </div>
+  </div>
+    
+   
+
+{%endif%}
+{% endfor %}
