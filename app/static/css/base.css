@@ -495,6 +495,22 @@ textarea {
 }
 
 
+.no-results-box {
+  background-color: #f8fbfa; 
+  border: 2px dashed #7db3a8; 
+  border-radius: 50px;
+  color: #5a9289;
+  max-width: 600px;
+  font-family: 'Poppins', sans-serif;
+  transition: 0.3s ease;
+}
+
+.no-results-box:hover {
+  box-shadow: 0 6px 18px rgba(90, 146, 137, 0.15);
+}
+
+
+
 .search-input:focus {
   outline: none !important;
   box-shadow: none !important;

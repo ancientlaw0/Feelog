@@ -18,7 +18,6 @@ ENV PYTHONUNBUFFERED=1
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# Expose Flask/Gunicorn port
 EXPOSE 5000
 
 # Use entrypoint script to start app

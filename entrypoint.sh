@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 1. wait for .env if needed
+# copy .env if needed
 if [ ! -f .env ]; then
     echo ".env not found, copying from .env.example..."
     cp .env.example .env
@@ -14,7 +14,7 @@ until curl -s $ELASTICSEARCH_URL > /dev/null; do
 done
 echo "Elasticsearch is UP at $ELASTICSEARCH_URL"
 
-# 3. Run seed-admin (migrations + admin setup)
+# Run seed-admin (migrations + admin setup)
 echo "Running seed-admin (includes migrations)..."
 flask seed-admin
 

@@ -33,10 +33,19 @@ def create_app(config_class=Config):
     register_cli(app)
     es_url = app.config.get('ELASTICSEARCH_URL')
     if es_url:
-        app.elasticsearch = Elasticsearch([es_url])
+        try:
+            es = Elasticsearch([es_url])
+            if es.ping():
+                app.elasticsearch = es
+            else:
+                app.elasticsearch = None
+                app.logger.warning("Elasticsearch ping failed.")
+        except Exception as e:
+            app.elasticsearch = None
+            app.logger.warning(f"Elasticsearch unavailable: {e}")
     else:
         app.elasticsearch = None
-    
+        
     from app.auth import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
 

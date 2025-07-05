@@ -153,6 +153,11 @@ def edit_profile():
 @bp.route('/search')
 @login_required
 def search():  # Post.search() is an abstraction over Elasticsearch or full-text logic
+    
+    if not current_app.elasticsearch:  # handling if elastic search not installed or used
+        flash("Search is currently unavailable. Please try again later.", "warning")
+        return redirect(url_for('main.index'))   
+    
     if not g.search_form.validate():
         return redirect(url_for('main.explore'))
     page = request.args.get('page', 1, type=int)
@@ -256,7 +261,7 @@ def edit_post(id):
     form=PostForm()
 
     if request.method == 'GET':
-        # manually prepopulating rather than obj
+        # Prepopulating the edit form 
         form.process(obj=post)
 
     if form.validate_on_submit():

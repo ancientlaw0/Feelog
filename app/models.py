@@ -10,11 +10,13 @@ from app.search import add_to_index, remove_from_index, query_index
 import jwt
 from time import time
 from flask import current_app
+from elasticsearch.exceptions import NotFoundError
 
 # Reorder results based on Elasticsearch match order using CASE WHEN.
 class SearchableMixin(object):
     @classmethod
     def search(cls, expression, page, per_page):
+        cls.check_and_reindex_if_needed()  # Ensures index exists before querying
         ids, total = query_index(cls.__tablename__, expression, page, per_page)
         if total == 0:
             return [], 0
@@ -52,6 +54,23 @@ class SearchableMixin(object):
     def reindex(cls): # Re-index all existing records into Elasticsearch, e.g. after index deletion or schema changes.
         for obj in db.session.scalars(sa.select(cls)):
             add_to_index(cls.__tablename__, obj)
+
+    @classmethod # solving not indexed error by auto reindexing
+    def check_and_reindex_if_needed(cls):
+        if not current_app.elasticsearch:
+            current_app.logger.warning("Elasticsearch not configured.")
+            return
+
+        index_name = cls.__tablename__
+        try:
+            current_app.elasticsearch.indices.get(index=index_name)
+        except NotFoundError:
+            current_app.logger.warning(f"Index '{index_name}' not found. Reindexing...")
+            cls.reindex()
+        except Exception as e:
+            current_app.logger.warning(f"Could not verify index '{index_name}': {e}")
+
+
 db.event.listen(db.session, 'before_commit', SearchableMixin.before_commit)
 db.event.listen(db.session, 'after_commit', SearchableMixin.after_commit)
 

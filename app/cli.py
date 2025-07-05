@@ -5,7 +5,7 @@ from flask.cli import with_appcontext
 def register_cli(app):
     @app.cli.command("seed-admin")
     @with_appcontext
-    def seed_admin():
+    def seed_admin(): # Creation of default admin and migrating the tables
       
         from app import db
         from app.models import User
