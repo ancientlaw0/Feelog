@@ -72,6 +72,7 @@ Feelog is that answer. No algorithm. Just feelings, shared consciously.
 - **Search**: Full-text powered by Elasticsearch with graceful fallback handling
 - **Realtime Feed**: Infinite scroll via IntersectionObserver + `fetch()` API
 - **Database Event Hooks**: Auto-sync search index using SQLAlchemy event listeners
+- **Image preview**: Image preview for posting from FileReader API
 - **Security Enhancements**:
   - CSRF protection via Flask-WTF
   - JWT token use for password resets

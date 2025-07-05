@@ -16,16 +16,23 @@ from elasticsearch.exceptions import NotFoundError
 class SearchableMixin(object):
     @classmethod
     def search(cls, expression, page, per_page):
-        cls.check_and_reindex_if_needed()  # Ensures index exists before querying
+        cls.check_and_reindex_if_needed() # check if index available 
+
         ids, total = query_index(cls.__tablename__, expression, page, per_page)
         if total == 0:
             return [], 0
-        when = []
-        for i in range(len(ids)):
-            when.append((ids[i], i))
-        query = sa.select(cls).where(cls.id.in_(ids)).order_by(
-            db.case(*when, value=cls.id))
+
+        when = [(id_, i) for i, id_ in enumerate(ids)]
+
+        # Filter out soft-deleted posts
+        query = sa.select(cls).where(
+            cls.id.in_([id_ for id_ in ids]),
+            cls.is_deleted.is_(False) 
+        ).order_by(
+            db.case(*when, value=cls.id)
+        )
         return db.session.scalars(query), total
+    
     @classmethod
     def before_commit(cls, session):
         session._changes = {
@@ -64,9 +71,19 @@ class SearchableMixin(object):
         index_name = cls.__tablename__
         try:
             current_app.elasticsearch.indices.get(index=index_name)
-        except NotFoundError:
-            current_app.logger.warning(f"Index '{index_name}' not found. Reindexing...")
-            cls.reindex()
+        except NotFoundError:  # handling the error of reindexing if database is empty
+            current_app.logger.warning(f"Index '{index_name}' not found. Trying to reindex...")
+            try:
+                cls.reindex()
+                # checking again after reindex
+                current_app.elasticsearch.indices.get(index=index_name)
+            except NotFoundError:  
+                current_app.logger.warning(f"Reindex failed — no data to index. Creating empty index '{index_name}'.")
+                try:
+                    current_app.elasticsearch.indices.create(index=index_name)
+                except Exception as e:
+                    current_app.logger.warning(f"Failed to create index '{index_name}': {e}")
+
         except Exception as e:
             current_app.logger.warning(f"Could not verify index '{index_name}': {e}")
 
